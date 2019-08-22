@@ -6,7 +6,8 @@ import {
 
 // @ts-ignore
 export const createSchema = (url: string) =>
-  createSchemaFromSwagger(url, {
+  createSchemaFromSwagger({
+    swaggerSchema: url,
     async callBackend({
       requestOptions: { method, body, baseUrl, path, query, headers, bodyType }
     }: CallBackendArguments<{}>) {
@@ -21,7 +22,7 @@ export const createSchema = (url: string) =>
         qs: query,
         method,
         headers,
-        baseUrl,
+        baseUrl: `https://cors-anywhere.herokuapp.com/${baseUrl}`,
         uri: path
       });
     }
