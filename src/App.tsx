@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import './App.css';
 import GraphiQL, { Toolbar, ToolbarButton } from 'graphiql';
 import { graphql, GraphQLSchema } from 'graphql';
 import { createSchema } from './schema';
+import './App.css';
 
 const ChangeSchemaForm = ({
   onChangeSchema
@@ -15,6 +15,7 @@ const ChangeSchemaForm = ({
   const submitRef = useRef<HTMLInputElement | null>(null);
   return (
     <form
+      className="changeSchemaForm"
       onSubmitCapture={e => {
         e.preventDefault();
         setCreateSchemaState('loading');
@@ -28,7 +29,11 @@ const ChangeSchemaForm = ({
         );
       }}
     >
-      <input name="url" placeholder={'Paste a swagger/openapi url here...'} />
+      <input
+        name="url"
+        className="urlInput"
+        placeholder={'Paste a swagger/openapi url here...'}
+      />
       <input type="submit" hidden ref={submitRef} />
 
       <ToolbarButton
@@ -41,8 +46,9 @@ const ChangeSchemaForm = ({
         }
       ></ToolbarButton>
 
-      {createSchemaState instanceof Error &&
-        `Error: ${createSchemaState.message}`}
+      {createSchemaState instanceof Error && (
+        <span className="changeSchemaFormError">{`Error: ${createSchemaState.message}`}</span>
+      )}
     </form>
   );
 };

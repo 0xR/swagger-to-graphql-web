@@ -1,3 +1,7 @@
-#root {
-  height: 100vh;
+.urlInput {
+  width: 30em;
+}
+
+.changeSchemaForm {
+  display: flex;
 }
