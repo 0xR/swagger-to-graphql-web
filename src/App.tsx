@@ -44,7 +44,7 @@ const ChangeSchemaForm = ({
         label={
           createSchemaState === 'loading' ? 'Update schema...' : 'Update schema'
         }
-      ></ToolbarButton>
+      />
 
       {createSchemaState instanceof Error && (
         <span className="changeSchemaFormError">{`Error: ${createSchemaState.message}`}</span>
@@ -58,9 +58,6 @@ const App: React.FC = () => {
 
   const graphiqlRef = useRef<any>();
 
-  if (schemaState instanceof Error) {
-    return <pre>{`Got error: ${schemaState.message}`}</pre>;
-  }
   return (
     <GraphiQL
       ref={graphiqlRef}
