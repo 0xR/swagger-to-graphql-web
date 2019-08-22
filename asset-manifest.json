@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/swagger-to-graphql-demo/static/css/main.85795a5e.chunk.css",
+    "main.js": "/swagger-to-graphql-demo/static/js/main.f5ffd947.chunk.js",
+    "main.js.map": "/swagger-to-graphql-demo/static/js/main.f5ffd947.chunk.js.map",
+    "runtime~main.js": "/swagger-to-graphql-demo/static/js/runtime~main.a63adc53.js",
+    "runtime~main.js.map": "/swagger-to-graphql-demo/static/js/runtime~main.a63adc53.js.map",
+    "static/css/2.1c6535de.chunk.css": "/swagger-to-graphql-demo/static/css/2.1c6535de.chunk.css",
+    "static/js/2.ed42b097.chunk.js": "/swagger-to-graphql-demo/static/js/2.ed42b097.chunk.js",
+    "static/js/2.ed42b097.chunk.js.map": "/swagger-to-graphql-demo/static/js/2.ed42b097.chunk.js.map",
+    "index.html": "/swagger-to-graphql-demo/index.html",
+    "precache-manifest.4b97e57fe9b9f88aaa4b1ec7d3564046.js": "/swagger-to-graphql-demo/precache-manifest.4b97e57fe9b9f88aaa4b1ec7d3564046.js",
+    "service-worker.js": "/swagger-to-graphql-demo/service-worker.js",
+    "static/css/2.1c6535de.chunk.css.map": "/swagger-to-graphql-demo/static/css/2.1c6535de.chunk.css.map",
+    "static/css/main.85795a5e.chunk.css.map": "/swagger-to-graphql-demo/static/css/main.85795a5e.chunk.css.map",
+    "static/media/GraphQLLanguageService.js.flow": "/swagger-to-graphql-demo/static/media/GraphQLLanguageService.js.ae99e6a8.flow",
+    "static/media/autocompleteUtils.js.flow": "/swagger-to-graphql-demo/static/media/autocompleteUtils.js.58efad1e.flow",
+    "static/media/getAutocompleteSuggestions.js.flow": "/swagger-to-graphql-demo/static/media/getAutocompleteSuggestions.js.453f9006.flow",
+    "static/media/getDefinition.js.flow": "/swagger-to-graphql-demo/static/media/getDefinition.js.38e2d669.flow",
+    "static/media/getDiagnostics.js.flow": "/swagger-to-graphql-demo/static/media/getDiagnostics.js.a66de606.flow",
+    "static/media/getHoverInformation.js.flow": "/swagger-to-graphql-demo/static/media/getHoverInformation.js.d28c61a6.flow",
+    "static/media/getOutline.js.flow": "/swagger-to-graphql-demo/static/media/getOutline.js.0195ba70.flow",
+    "static/media/index.js.flow": "/swagger-to-graphql-demo/static/media/index.js.c2631028.flow"
+  }
+}
