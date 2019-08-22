@@ -40,9 +40,7 @@
     ]
   },
   "devDependencies": {
-    "@types/request-promise": "^4.1.44",
     "gh-pages": "^2.1.1",
-    "prettier": "^1.18.2",
-    "request-promise": "^4.2.4"
+    "prettier": "^1.18.2"
   }
 }
