@@ -78,6 +78,7 @@ const App: React.FC = () => {
       }}
     >
       <GraphiQL.Toolbar>
+        <ChangeSchemaForm onChangeSchema={setSchema} />
         <ToolbarButton
           onClick={() => {
             graphiqlRef.current.handlePrettifyQuery();
@@ -106,7 +107,6 @@ const App: React.FC = () => {
           title="Show History"
           label="History"
         />
-        <ChangeSchemaForm onChangeSchema={setSchema} />
       </GraphiQL.Toolbar>
     </GraphiQL>
   );
