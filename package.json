@@ -2,6 +2,7 @@
   "name": "swagger-to-graphql-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://0xR.github.io/swagger-to-graphql-web",
   "dependencies": {
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
@@ -19,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +41,7 @@
   },
   "devDependencies": {
     "@types/request-promise": "^4.1.44",
+    "gh-pages": "^2.1.1",
     "prettier": "^1.18.2",
     "request-promise": "^4.2.4"
   }

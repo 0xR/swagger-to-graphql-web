@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import GraphiQL, { Toolbar, ToolbarButton } from 'graphiql';
+import GraphiQL, { ToolbarButton } from 'graphiql';
 import { graphql, GraphQLSchema } from 'graphql';
 import { createSchema } from './schema';
 import './App.css';
