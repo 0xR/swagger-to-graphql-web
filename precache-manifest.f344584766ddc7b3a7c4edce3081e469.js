@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c93c1034ea7131685591589ac1f5d2aa",
+    "revision": "3bae717caeae69bc7ac8771d215031e7",
     "url": "/swagger-to-graphql-web/index.html"
   },
   {
