@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/swagger-to-graphql-web/precache-manifest.103cd64bf00cce80961297396c1e77fc.js"
+  "/swagger-to-graphql-web/precache-manifest.89456984147f4573dfecd0a9eddec24d.js"
 );
 
 self.addEventListener('message', (event) => {
