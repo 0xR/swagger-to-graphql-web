@@ -13,7 +13,8 @@ export const createSchema = (url: string) =>
       const hasBody = Object.keys(body).length > 0;
       const response = await fetch(
         `https://cors-anywhere.herokuapp.com/${baseUrl}${path}?${new URLSearchParams(
-          query
+          // TODO: deal with query parameters
+          query as Record<string, string>
         )}`,
         {
           method,

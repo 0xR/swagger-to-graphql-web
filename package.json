@@ -13,7 +13,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
-    "swagger-to-graphql": "file:../swagger-to-graphql",
+    "swagger-to-graphql": "^3.0.1",
     "typescript": "3.5.3"
   },
   "scripts": {
