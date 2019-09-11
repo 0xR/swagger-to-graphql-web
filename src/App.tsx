@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
-import GraphiQL, { ToolbarButton } from 'graphiql';
-import { graphql, GraphQLSchema } from 'graphql';
-import { createSchema } from './schema';
-import './App.css';
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import GraphiQL, { ToolbarButton } from "graphiql";
+import { graphql, GraphQLSchema } from "graphql";
+import { createSchema } from "./schema";
+import "./App.css";
+
+const initialSwaggerSchema = "https://petstore.swagger.io/v2/swagger.json";
 
 const ChangeSchemaForm = ({
   onChangeSchema
@@ -10,29 +12,41 @@ const ChangeSchemaForm = ({
   onChangeSchema: (schema: GraphQLSchema) => void;
 }) => {
   const [createSchemaState, setCreateSchemaState] = useState<
-    'initial' | 'loading' | Error
-  >('initial');
+    "initial" | "loading" | Error
+  >("loading");
   const submitRef = useRef<HTMLInputElement | null>(null);
+
+  const setUrl = useCallback(
+    url =>
+      createSchema(url).then(
+        (schema: GraphQLSchema) => {
+          setCreateSchemaState("initial");
+          onChangeSchema(schema);
+        },
+        (error: Error) => setCreateSchemaState(error)
+      ),
+    [setCreateSchemaState, onChangeSchema]
+  );
+
+  useEffect(() => {
+    setUrl(initialSwaggerSchema);
+  }, []);
+
   return (
     <form
       className="changeSchemaForm"
       onSubmitCapture={e => {
         e.preventDefault();
-        setCreateSchemaState('loading');
+        setCreateSchemaState("loading");
         const url: string = e.currentTarget.url.value;
-        createSchema(url).then(
-          (schema: GraphQLSchema) => {
-            setCreateSchemaState('initial');
-            onChangeSchema(schema);
-          },
-          (error: Error) => setCreateSchemaState(error)
-        );
+        setUrl(url);
       }}
     >
       <input
         name="url"
         className="urlInput"
-        placeholder={'Paste a swagger/openapi url here...'}
+        placeholder={"Paste a swagger/openapi url here..."}
+        defaultValue={initialSwaggerSchema}
       />
       <input type="submit" hidden ref={submitRef} />
 
@@ -40,9 +54,9 @@ const ChangeSchemaForm = ({
         onClick={() => {
           submitRef.current && submitRef.current.click();
         }}
-        title={'Fetches the Swagger/OpenAPI schema and converts it to GraphQL'}
+        title={"Fetches the Swagger/OpenAPI schema and converts it to GraphQL"}
         label={
-          createSchemaState === 'loading' ? 'Update schema...' : 'Update schema'
+          createSchemaState === "loading" ? "Update schema..." : "Update schema"
         }
       />
 
