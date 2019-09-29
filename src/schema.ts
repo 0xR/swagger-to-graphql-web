@@ -1,30 +1,30 @@
 import {
   createSchema as createSchemaFromSwagger,
-  CallBackendArguments
-} from "swagger-to-graphql";
+  CallBackendArguments,
+} from 'swagger-to-graphql';
 
 async function callBackend({
-  requestOptions: { method, body, baseUrl, path, query, headers, bodyType }
+  requestOptions: { method, body, baseUrl, path, query, headers, bodyType },
 }: CallBackendArguments<{}>) {
   const response = await fetch(
     `https://cors-anywhere.herokuapp.com/${baseUrl}${path}?${new URLSearchParams(
       // Typedefs seem wrong
-      query as Record<string, string>
+      query as Record<string, string>,
     )}`,
     {
       method,
-      ...(bodyType === "json" && {
+      ...(bodyType === 'json' && {
         headers: {
-          "Content-Type": "application/json",
-          ...headers
+          'Content-Type': 'application/json',
+          ...headers,
         },
-        body: body ? JSON.stringify(body) : undefined
+        body: body ? JSON.stringify(body) : undefined,
       }),
-      ...(bodyType === "formData" && {
+      ...(bodyType === 'formData' && {
         headers: headers,
-        body: body ? new URLSearchParams(body) : undefined
-      })
-    }
+        body: body ? new URLSearchParams(body) : undefined,
+      }),
+    },
   );
 
   const text = await response.text();
@@ -41,14 +41,14 @@ export const createSchema = async (url: string) => {
   const swaggerSchema = await callBackend({
     context: {},
     requestOptions: {
-      method: "get",
+      method: 'get',
       baseUrl: url,
-      path: "",
-      bodyType: "json"
-    }
+      path: '',
+      bodyType: 'json',
+    },
   });
   return createSchemaFromSwagger({
     swaggerSchema,
-    callBackend
+    callBackend,
   });
 };

@@ -1,3 +1,3 @@
 /// <reference types="react-scripts" />
 
-declare module "graphiql";
+declare module 'graphiql';

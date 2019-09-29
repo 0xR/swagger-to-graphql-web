@@ -1,24 +1,24 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
-import GraphiQL, { ToolbarButton } from "graphiql";
-import { graphql, GraphQLSchema } from "graphql";
-import { createSchema } from "./schema";
-import "./App.css";
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import GraphiQL, { ToolbarButton } from 'graphiql';
+import { graphql, GraphQLSchema } from 'graphql';
+import { createSchema } from './schema';
+import './App.css';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-148987688-1', {
-  debug: window.location.hostname === 'localhost'
+  debug: window.location.hostname === 'localhost',
 });
 
-const initialSwaggerSchema = "https://petstore.swagger.io/v2/swagger.json";
+const initialSwaggerSchema = 'https://petstore.swagger.io/v2/swagger.json';
 
 const ChangeSchemaForm = ({
-  onChangeSchema
+  onChangeSchema,
 }: {
   onChangeSchema: (schema: GraphQLSchema) => void;
 }) => {
   const [createSchemaState, setCreateSchemaState] = useState<
-    "initial" | "loading" | Error
-  >("loading");
+    'initial' | 'loading' | Error
+  >('loading');
   const submitRef = useRef<HTMLInputElement | null>(null);
 
   const setUrl = useCallback(
@@ -28,21 +28,23 @@ const ChangeSchemaForm = ({
           ReactGA.event({
             category: 'Schema loading',
             action: 'Load success',
-            label: url === initialSwaggerSchema ? 'default schema' : 'custom schema'
+            label:
+              url === initialSwaggerSchema ? 'default schema' : 'custom schema',
           });
-          setCreateSchemaState("initial");
+          setCreateSchemaState('initial');
           onChangeSchema(schema);
         },
         (error: Error) => {
           ReactGA.event({
             category: 'Schema loading',
             action: 'Load fail',
-            label: url === initialSwaggerSchema ? 'default schema' : 'custom schema'
+            label:
+              url === initialSwaggerSchema ? 'default schema' : 'custom schema',
           });
-          setCreateSchemaState(error)
-        }
+          setCreateSchemaState(error);
+        },
       ),
-    [setCreateSchemaState, onChangeSchema]
+    [setCreateSchemaState, onChangeSchema],
   );
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const ChangeSchemaForm = ({
       className="changeSchemaForm"
       onSubmitCapture={e => {
         e.preventDefault();
-        setCreateSchemaState("loading");
+        setCreateSchemaState('loading');
         const url: string = e.currentTarget.url.value;
         setUrl(url);
       }}
@@ -62,7 +64,7 @@ const ChangeSchemaForm = ({
       <input
         name="url"
         className="urlInput"
-        placeholder={"Paste a swagger/openapi url here..."}
+        placeholder={'Paste a swagger/openapi url here...'}
         defaultValue={initialSwaggerSchema}
       />
       <input type="submit" hidden ref={submitRef} />
@@ -71,9 +73,9 @@ const ChangeSchemaForm = ({
         onClick={() => {
           submitRef.current && submitRef.current.click();
         }}
-        title={"Fetches the Swagger/OpenAPI schema and converts it to GraphQL"}
+        title={'Fetches the Swagger/OpenAPI schema and converts it to GraphQL'}
         label={
-          createSchemaState === "loading" ? "Update schema..." : "Update schema"
+          createSchemaState === 'loading' ? 'Update schema...' : 'Update schema'
         }
       />
 
@@ -95,7 +97,7 @@ const App: React.FC = () => {
       schema={schemaState}
       fetcher={({
         query,
-        variables
+        variables,
       }: {
         query: string;
         variables: { [key: string]: any };
