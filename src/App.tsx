@@ -3,6 +3,11 @@ import GraphiQL, { ToolbarButton } from "graphiql";
 import { graphql, GraphQLSchema } from "graphql";
 import { createSchema } from "./schema";
 import "./App.css";
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-148987688-1', {
+  debug: window.location.hostname === 'localhost'
+});
 
 const initialSwaggerSchema = "https://petstore.swagger.io/v2/swagger.json";
 
@@ -20,17 +25,29 @@ const ChangeSchemaForm = ({
     url =>
       createSchema(url).then(
         (schema: GraphQLSchema) => {
+          ReactGA.event({
+            category: 'Schema loading',
+            action: 'Load success',
+            label: url === initialSwaggerSchema ? 'default schema' : 'custom schema'
+          });
           setCreateSchemaState("initial");
           onChangeSchema(schema);
         },
-        (error: Error) => setCreateSchemaState(error)
+        (error: Error) => {
+          ReactGA.event({
+            category: 'Schema loading',
+            action: 'Load fail',
+            label: url === initialSwaggerSchema ? 'default schema' : 'custom schema'
+          });
+          setCreateSchemaState(error)
+        }
       ),
     [setCreateSchemaState, onChangeSchema]
   );
 
   useEffect(() => {
     setUrl(initialSwaggerSchema);
-  }, []);
+  }, [setUrl]);
 
   return (
     <form
