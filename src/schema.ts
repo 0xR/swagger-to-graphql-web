@@ -2,6 +2,7 @@ import {
   createSchema as createSchemaFromSwagger,
   CallBackendArguments,
 } from 'swagger-to-graphql';
+import { safeLoad } from 'js-yaml';
 
 async function callBackend({
   requestOptions: { method, body, baseUrl, path, query, headers, bodyType },
@@ -47,8 +48,11 @@ export const createSchema = async (url: string) => {
       bodyType: 'json',
     },
   });
+
+  const parsedSchema = typeof swaggerSchema === 'string' ? safeLoad(swaggerSchema) : swaggerSchema;
+
   return createSchemaFromSwagger({
-    swaggerSchema,
+    swaggerSchema: parsedSchema,
     callBackend,
   });
 };
