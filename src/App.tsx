@@ -95,7 +95,7 @@ const App: React.FC = () => {
     <GraphiQL
       ref={graphiqlRef}
       schema={schemaState}
-      fetcher={({
+      fetcher={async ({
         query,
         variables,
       }: {
@@ -103,7 +103,22 @@ const App: React.FC = () => {
         variables: { [key: string]: any };
       }) => {
         if (schemaState) {
-          return graphql(schemaState, query, variables);
+          try {
+            const result = await graphql(schemaState, query, variables);
+            const hasErrors = result.errors && result.errors.length;
+            ReactGA.event({
+              category: 'query',
+              action: 'execution success',
+              label: hasErrors ? 'has errors' : 'no errors',
+            });
+            return result;
+          } catch (e) {
+            ReactGA.event({
+              category: 'query',
+              action: 'execution failed',
+            });
+            throw e;
+          }
         }
       }}
     >

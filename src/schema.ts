@@ -32,7 +32,9 @@ function getBodyAndHeaders(
 async function callBackend({
   requestOptions: { method, body, baseUrl, path, query, headers, bodyType },
 }: CallBackendArguments<{}>) {
-  const searchPath = query ? `?${new URLSearchParams(query as Record<string,string>)}` : '';
+  const searchPath = query
+    ? `?${new URLSearchParams(query as Record<string, string>)}`
+    : '';
   const url = `https://cors-anywhere.herokuapp.com/${baseUrl}${path}${searchPath}`;
   const bodyAndHeaders = getBodyAndHeaders(body, bodyType, headers);
   const response = await fetch(url, {
