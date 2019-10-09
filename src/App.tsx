@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import GraphiQL, { ToolbarButton } from 'graphiql';
 import { graphql, GraphQLSchema } from 'graphql';
+import GraphiQLExplorer from 'graphiql-explorer';
+import dedent from 'dedent';
 import { createSchema } from './schema';
+import 'graphiql/graphiql.css';
 import './App.css';
 import ReactGA from 'react-ga';
 
@@ -88,72 +91,103 @@ const ChangeSchemaForm = ({
 
 const App: React.FC = () => {
   const [schemaState, setSchema] = useState<null | GraphQLSchema>(null);
+  const [query, setQuery] = useState<string>(dedent`
+    # To run the query: click the run button above
+    # To edit the query: use the explorer on the left or edit the text below
+    # To toggle autocomplete: press ctrl + space or cmd + space
+    
+    query AvailablePetInfo {
+      findPetsByStatus(status: "available") {
+        id
+        category {
+          name
+        }
+        tags {
+          name
+        }
+      }
+    }
+  `);
 
   const graphiqlRef = useRef<any>();
 
+  const [isExplorerOpen, setIsExplorerOpen] = useState<boolean>(true);
+
   return (
-    <GraphiQL
-      ref={graphiqlRef}
-      schema={schemaState}
-      fetcher={async ({
-        query,
-        variables,
-      }: {
-        query: string;
-        variables: { [key: string]: any };
-      }) => {
-        if (schemaState) {
-          try {
-            const result = await graphql(schemaState, query, variables);
-            const hasErrors = result.errors && result.errors.length;
-            ReactGA.event({
-              category: 'query',
-              action: 'execution success',
-              label: hasErrors ? 'has errors' : 'no errors',
-            });
-            return result;
-          } catch (e) {
-            ReactGA.event({
-              category: 'query',
-              action: 'execution failed',
-            });
-            throw e;
-          }
+    <div className="graphiql-container">
+      <GraphiQLExplorer
+        schema={schemaState}
+        query={query}
+        onEdit={setQuery}
+        onRunOperation={(operationName: string) =>
+          graphiqlRef.current.handleRunQuery(operationName)
         }
-      }}
-    >
-      <GraphiQL.Toolbar>
-        <ChangeSchemaForm onChangeSchema={setSchema} />
-        <ToolbarButton
-          onClick={() => {
-            graphiqlRef.current.handlePrettifyQuery();
-          }}
-          title="Prettify Query (Shift-Ctrl-P)"
-          label="Prettify"
-        />
-        <ToolbarButton
-          onClick={() => {
-            graphiqlRef.current.handleMergeQuery();
-          }}
-          title="Merge Query (Shift-Ctrl-M)"
-          label="Merge"
-        />
-        <ToolbarButton
-          onClick={() => {
-            graphiqlRef.current.handleCopyQuery();
-          }}
-          title="Copy Query (Shift-Ctrl-C)"
-          label="Copy"
-        />
-        <ToolbarButton
-          onClick={() => {
-            graphiqlRef.current.handleToggleHistory();
-          }}
-          title="Show History"
-          label="History"
-        />
-      </GraphiQL.Toolbar>
-    </GraphiQL>
+        explorerIsOpen={isExplorerOpen}
+        onToggleExplorer={() => setIsExplorerOpen(!isExplorerOpen)}
+      />
+      <GraphiQL
+        ref={graphiqlRef}
+        schema={schemaState}
+        query={query}
+        onEditQuery={setQuery}
+        fetcher={async ({
+          query,
+          variables,
+          operationName,
+        }: {
+          query: string;
+          variables: { [key: string]: any };
+          operationName?: string;
+        }) => {
+          if (schemaState) {
+            try {
+              const result = await graphql({
+                schema: schemaState,
+                source: query,
+                variableValues: variables,
+                operationName,
+              });
+              const hasErrors = result.errors && result.errors.length;
+              ReactGA.event({
+                category: 'query',
+                action: 'execution success',
+                label: hasErrors ? 'has errors' : 'no errors',
+              });
+              return result;
+            } catch (e) {
+              ReactGA.event({
+                category: 'query',
+                action: 'execution failed',
+              });
+              throw e;
+            }
+          }
+        }}
+      >
+        <GraphiQL.Toolbar>
+          <ChangeSchemaForm onChangeSchema={setSchema} />
+          <ToolbarButton
+            onClick={() => {
+              graphiqlRef.current.handlePrettifyQuery();
+            }}
+            title="Prettify Query (Shift-Ctrl-P)"
+            label="Prettify"
+          />
+          <ToolbarButton
+            onClick={() => {
+              graphiqlRef.current.handleToggleHistory();
+            }}
+            title="Show History"
+            label="History"
+          />
+          <GraphiQL.Button
+            onClick={() => setIsExplorerOpen(!isExplorerOpen)}
+            label="Explorer"
+            title="Toggle Explorer"
+          />
+        </GraphiQL.Toolbar>
+      </GraphiQL>
+    </div>
   );
 };
 
