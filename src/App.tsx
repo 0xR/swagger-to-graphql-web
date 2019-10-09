@@ -97,8 +97,9 @@ const App: React.FC = () => {
     # To toggle autocomplete: press ctrl + space or cmd + space
     
     query AvailablePetInfo {
-      findPetsByStatus(status: "available") {
+      findPetsByStatus(status: "sold") {
         id
+        name
         category {
           name
         }
