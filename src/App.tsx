@@ -96,7 +96,7 @@ const App: React.FC = () => {
     # To edit the query: use the explorer on the left or edit the text below
     # To toggle autocomplete: press ctrl + space or cmd + space
     
-    query AvailablePetInfo {
+    query PetInfo {
       findPetsByStatus(status: "sold") {
         id
         name
