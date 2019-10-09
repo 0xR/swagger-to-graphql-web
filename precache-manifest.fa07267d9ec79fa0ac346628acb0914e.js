@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b42dc3e348a8343b45c8b6f5fb04ea76",
+    "revision": "9704652275b4afd97b39647f5422d782",
     "url": "/swagger-to-graphql-web/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/swagger-to-graphql-web/static/css/2.1c6535de.chunk.css"
   },
   {
-    "revision": "698cc154e7c3e325bf5a",
+    "revision": "793f01404b1260a1a88c",
     "url": "/swagger-to-graphql-web/static/css/main.76e30293.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/swagger-to-graphql-web/static/js/2.073f77e6.chunk.js"
   },
   {
-    "revision": "698cc154e7c3e325bf5a",
-    "url": "/swagger-to-graphql-web/static/js/main.b81ff0c3.chunk.js"
+    "revision": "793f01404b1260a1a88c",
+    "url": "/swagger-to-graphql-web/static/js/main.235277ed.chunk.js"
   },
   {
     "revision": "1685aa805d3a833c2e17",
